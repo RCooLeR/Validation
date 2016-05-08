@@ -20,7 +20,12 @@ use Respect\Validation\Test\RuleTestCase;
  */
 class EachTest extends RuleTestCase
 {
-    public function providerForValidInput()
+    protected function setUp()
+    {
+        $this->markTestIncomplete(self::class.' needs to be refactored');
+    }
+
+    public function providerForValidInput(): array
     {
         $ruleNotEmpty = new Each($this->getRuleMock(true));
         $ruleAlphaItemIntKey = new Each($this->getRuleMock(true), $this->getRuleMock(true));
@@ -46,7 +51,7 @@ class EachTest extends RuleTestCase
         ];
     }
 
-    public function providerForInvalidInput()
+    public function providerForInvalidInput(): array
     {
         $rule = new Each($this->getRuleMock(false));
         $ruleOnlyKeyValidation = new Each(null, $this->getRuleMock(false));

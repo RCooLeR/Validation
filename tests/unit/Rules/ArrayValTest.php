@@ -22,7 +22,12 @@ use stdClass;
  */
 class ArrayValTest extends RuleTestCase
 {
-    public function providerForValidInput()
+    protected function setUp()
+    {
+        $this->markTestIncomplete(ArrayVal::class.' needs to be refactored');
+    }
+
+    public function providerForValidInput(): array
     {
         $rule = new ArrayVal();
 
@@ -34,7 +39,7 @@ class ArrayValTest extends RuleTestCase
         ];
     }
 
-    public function providerForInvalidInput()
+    public function providerForInvalidInput(): array
     {
         $rule = new ArrayVal();
 

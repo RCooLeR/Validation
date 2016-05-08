@@ -21,10 +21,15 @@ use Respect\Validation\Test\RuleTestCase;
  */
 final class NifTest extends RuleTestCase
 {
+    protected function setUp()
+    {
+        $this->markTestIncomplete(Nif::class.' needs to be refactored');
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function providerForValidInput()
+    public function providerForValidInput(): array
     {
         $rule = new Nif();
 
@@ -55,7 +60,7 @@ final class NifTest extends RuleTestCase
     /**
      * {@inheritdoc}
      */
-    public function providerForInvalidInput()
+    public function providerForInvalidInput(): array
     {
         $rule = new Nif();
 

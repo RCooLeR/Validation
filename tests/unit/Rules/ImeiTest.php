@@ -19,7 +19,12 @@ use Respect\Validation\Test\RuleTestCase;
  */
 class ImeiTest extends RuleTestCase
 {
-    public function providerForValidInput()
+    protected function setUp()
+    {
+        $this->markTestIncomplete(Imei::class.' needs to be refactored');
+    }
+
+    public function providerForValidInput(): array
     {
         $rule = new Imei();
 
@@ -35,7 +40,7 @@ class ImeiTest extends RuleTestCase
         ];
     }
 
-    public function providerForInvalidInput()
+    public function providerForInvalidInput(): array
     {
         $rule = new Imei();
 
