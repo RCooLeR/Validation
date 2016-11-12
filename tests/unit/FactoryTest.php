@@ -18,6 +18,11 @@ use Respect\Validation\Rules\Uppercase;
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+        $this->markTestIncomplete(Factory::class.' needs to be refactored');
+    }
+
     public function testShouldHaveRulePrefixesByDefault()
     {
         $factory = new Factory();
