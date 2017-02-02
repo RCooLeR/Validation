@@ -11,7 +11,7 @@
 
 namespace Respect\Validation\Rules;
 
-class AllOf extends AbstractComposite
+class AllOf
 {
     public function assert($input)
     {

@@ -11,7 +11,7 @@
 
 namespace Respect\Validation\Rules;
 
-class NoneOf extends AbstractComposite
+class NoneOf
 {
     public function assert($input)
     {
