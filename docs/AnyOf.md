@@ -1,6 +1,6 @@
 # AnyOf
 
-- `v::anyOf(v $v1, v $v2, v $v3...)`
+- `AnyOf(Rule ...$rule)`
 
 This is a group validator that acts as an OR operator.
 

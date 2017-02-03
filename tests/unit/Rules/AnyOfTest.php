@@ -11,61 +11,66 @@
 
 namespace Respect\Validation\Rules;
 
+use Respect\Validation\Test\RuleTestCase;
+
 /**
- * @group  rule
+ * @group rule
+ *
  * @covers \Respect\Validation\Rules\AnyOf
- * @covers \Respect\Validation\Exceptions\AnyOfException
+ *
+ * @author Alexandre Gomes Gaigalas <alexandre@gaigalas.net>
+ * @author Henrique Moody <henriquemoody@gmail.com>
+ *
+ * @since 0.3.9
  */
-class AnyOfTest extends \PHPUnit_Framework_TestCase
+final class AnyOfTest extends RuleTestCase
 {
-    protected function setUp()
+    /**
+     * {@inheritdoc}
+     */
+    public function providerForValidInput(): array
     {
-        $this->markTestSkipped('AnyOf needs to be refactored');
-    }
+        $input = 'foo';
 
-    public function testValid()
-    {
-        $valid1 = new Callback(function () {
-            return false;
-        });
-        $valid2 = new Callback(function () {
-            return true;
-        });
-        $valid3 = new Callback(function () {
-            return false;
-        });
-        $o = new AnyOf($valid1, $valid2, $valid3);
-        $this->assertTrue($o->validate('any'));
-        $this->assertTrue($o->assert('any'));
-        $this->assertTrue($o->check('any'));
+        return [
+            [new AnyOf($this->createRuleMock($input, true)), $input],
+            [new AnyOf(...$this->createManyRuleMock($input, true, true)), $input],
+            [new AnyOf(...$this->createManyRuleMock($input, false, true)), $input],
+            [new AnyOf(...$this->createManyRuleMock($input, true, false)), $input],
+        ];
     }
 
     /**
-     * @expectedException \Respect\Validation\Exceptions\AnyOfException
+     * {@inheritdoc}
      */
-    public function testInvalid()
+    public function providerForInvalidInput(): array
     {
-        $valid1 = new Callback(function () {
-            return false;
-        });
-        $valid2 = new Callback(function () {
-            return false;
-        });
-        $valid3 = new Callback(function () {
-            return false;
-        });
-        $o = new AnyOf($valid1, $valid2, $valid3);
-        $this->assertFalse($o->validate('any'));
-        $this->assertFalse($o->assert('any'));
+        $input = 'bar';
+
+        return [
+            [new AnyOf(), $input],
+            [new AnyOf(...$this->createManyRuleMock($input, false)), $input],
+            [new AnyOf(...$this->createManyRuleMock($input, false, false)), $input],
+        ];
     }
 
     /**
-     * @expectedException \Respect\Validation\Exceptions\XdigitException
+     * @test
      */
-    public function testInvalidCheck()
+    public function shouldOneRuleResultsAsChildren()
     {
-        $o = new AnyOf(new Xdigit(), new Alnum());
-        $this->assertFalse($o->validate(-10));
-        $this->assertFalse($o->check(-10));
+        $input = 'baz';
+
+        $expectedRules = $this->createManyRuleMock($input, true, false, true, false);
+
+        $rule = new AnyOf(...$expectedRules);
+        $result = $rule->validate($input);
+
+        $actualRules = [];
+        foreach ($result->getChildren() as $childResult) {
+            $actualRules[] = $childResult->getRule();
+        }
+
+        self::assertSame($expectedRules, $actualRules);
     }
 }
