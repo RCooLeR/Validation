@@ -103,7 +103,7 @@ use Respect\Validation\Rules\Key;
  * @method static Validator negative()
  * @method static Validator nif()
  * @method static Validator no($useLocale = false)
- * @method static Validator noneOf()
+ * @method static Validator noneOf(Rule ...$rule)
  * @method static Validator not(Validatable $rule)
  * @method static Validator notBlank()
  * @method static Validator notEmpty()

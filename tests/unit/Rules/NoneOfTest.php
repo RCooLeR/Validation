@@ -11,51 +11,86 @@
 
 namespace Respect\Validation\Rules;
 
-/**
- * @group  rule
- * @covers \Respect\Validation\Rules\NoneOf
- * @covers \Respect\Validation\Exceptions\NoneOfException
- */
-class NoneOfTest extends \PHPUnit_Framework_TestCase
-{
-    protected function setUp()
-    {
-        $this->markTestSkipped('NoneOf needs to be refactored');
-    }
+use Respect\Validation\Test\RuleTestCase;
 
-    public function testValid()
+/**
+ * @group rule
+ *
+ * @covers \Respect\Validation\Rules\NoneOf
+ *
+ * @author Alexandre Gomes Gaigalas <alexandre@gaigalas.net>
+ * @author Henrique Moody <henriquemoody@gmail.com>
+ *
+ * @since 0.3.9
+ */
+final class NoneOfTest extends RuleTestCase
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function providerForValidInput(): array
     {
-        $valid1 = new Callback(function () {
-            return false;
-        });
-        $valid2 = new Callback(function () {
-            return false;
-        });
-        $valid3 = new Callback(function () {
-            return false;
-        });
-        $o = new NoneOf($valid1, $valid2, $valid3);
-        $this->assertTrue($o->validate('any'));
-        $this->assertTrue($o->assert('any'));
-        $this->assertTrue($o->check('any'));
+        $input = 'foo';
+
+        return [
+            [new NoneOf(), $input],
+            [new NoneOf($this->createRuleMock($input, false)), $input],
+            [new NoneOf(...$this->createManyRuleMock($input, false, false)), $input],
+        ];
     }
 
     /**
-     * @expectedException \Respect\Validation\Exceptions\NoneOfException
+     * {@inheritdoc}
      */
-    public function testInvalid()
+    public function providerForInvalidInput(): array
     {
-        $valid1 = new Callback(function () {
-            return false;
-        });
-        $valid2 = new Callback(function () {
-            return false;
-        });
-        $valid3 = new Callback(function () {
-            return true;
-        });
-        $o = new NoneOf($valid1, $valid2, $valid3);
-        $this->assertFalse($o->validate('any'));
-        $this->assertFalse($o->assert('any'));
+        $input = 'bar';
+
+        return [
+            [new NoneOf($this->createRuleMock($input, true)), $input],
+            [new NoneOf(...$this->createManyRuleMock($input, true, false)), $input],
+            [new NoneOf(...$this->createManyRuleMock($input, false, true)), $input],
+            [new NoneOf(...$this->createManyRuleMock($input, true, true)), $input],
+        ];
+    }
+
+    /**
+     * @test
+     */
+    public function shouldAllRuleResultsAsChildren()
+    {
+        $input = 'baz';
+
+        $expectedRules = $this->createManyRuleMock($input, true, false, true, false);
+
+        $rule = new NoneOf(...$expectedRules);
+        $result = $rule->validate($input);
+
+        $actualRules = [];
+        foreach ($result->getChildren() as $childResult) {
+            $actualRules[] = $childResult->getRule();
+        }
+
+        self::assertSame($expectedRules, $actualRules);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldInvertValidResultChildren()
+    {
+        $input = 'baz';
+
+        $expectedRules = $this->createManyRuleMock($input, false, false);
+
+        $rule = new NoneOf(...$expectedRules);
+        $result = $rule->validate($input);
+
+        $isInverted = true;
+        foreach ($result->getChildren() as $childRule) {
+            $isInverted = $isInverted && $childRule->isInverted();
+        }
+
+        self::assertTrue($isInverted);
     }
 }
