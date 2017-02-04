@@ -17,16 +17,20 @@ use SimpleXMLElement;
 use stdClass;
 
 /**
- * @group  rule
+ * @group rule
+ *
  * @covers \Respect\Validation\Rules\ArrayVal
+ *
+ * @author Alexandre Gomes Gaigalas <alexandre@gaigalas.net>
+ * @author Henrique Moody <henriquemoody@gmail.com>
+ *
+ * @since 0.3.9
  */
 class ArrayValTest extends RuleTestCase
 {
-    protected function setUp()
-    {
-        $this->markTestIncomplete(ArrayVal::class.' needs to be refactored');
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     public function providerForValidInput(): array
     {
         $rule = new ArrayVal();
@@ -39,6 +43,9 @@ class ArrayValTest extends RuleTestCase
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function providerForInvalidInput(): array
     {
         $rule = new ArrayVal();
