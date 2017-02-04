@@ -1,6 +1,6 @@
 # NoWhitespace
 
-- `v::noWhitespace()`
+- `NoWhitespace()`
 
 Validates if a string contains no whitespace (spaces, tabs and line breaks);
 

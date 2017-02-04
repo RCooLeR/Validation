@@ -11,18 +11,34 @@
 
 namespace Respect\Validation\Rules;
 
-class NoWhitespace extends AbstractRule
+use Respect\Validation\Result;
+use Respect\Validation\Rule;
+
+/**
+ * Validates if a string contains no whitespace (spaces, tabs and line breaks).
+ *
+ * @author Alexandre Gomes Gaigalas <alexandre@gaigalas.net>
+ * @author Augusto Pascutti <augusto@phpsp.org.br>
+ * @author Henrique Moody <henriquemoody@gmail.com>
+ *
+ * @since 0.3.9
+ */
+final class NoWhitespace implements Rule
 {
-    public function validate($input)
+    /**
+     * {@inheritdoc}
+     */
+    public function validate($input): Result
     {
         if (is_null($input)) {
-            return true;
+            return new Result(true, $input, $this);
         }
 
-        if (false === is_scalar($input)) {
-            return false;
+        $scalarResult = (new ScalarVal())->validate($input);
+        if (!$scalarResult->isValid()) {
+            return new Result($scalarResult->isValid(), $input, $this, [], $scalarResult);
         }
 
-        return !preg_match('#\s#', $input);
+        return new Result(!preg_match('#\s#', $input), $input, $this);
     }
 }
