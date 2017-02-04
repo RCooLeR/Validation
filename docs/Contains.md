@@ -1,7 +1,9 @@
 # Contains
 
-- `v::contains(mixed $value)`
-- `v::contains(mixed $value, bool $identical = false)`
+- `Contains(mixed $expectedValue)`
+- `Contains(mixed $expectedValue, bool $identical)`
+
+Validates if the input contains some value.
 
 For strings:
 
