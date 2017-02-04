@@ -15,16 +15,19 @@ use Respect\Validation\Test\RuleTestCase;
 use stdClass;
 
 /**
- * @group  rule
+ * @group rule
+ *
  * @covers \Respect\Validation\Rules\StringVal
+ *
+ * @author Henrique Moody <henriquemoody@gmail.com>
+ *
+ * @since 2.0.0
  */
-class StringValTest extends RuleTestCase
+final class StringValTest extends RuleTestCase
 {
-    protected function setUp()
-    {
-        $this->markTestIncomplete(StringVal::class.' needs to be refactored');
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     public function providerForValidInput(): array
     {
         $rule = new StringVal();
@@ -40,6 +43,9 @@ class StringValTest extends RuleTestCase
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function providerForInvalidInput(): array
     {
         $rule = new StringVal();
