@@ -1,6 +1,6 @@
 # Not
 
-- `v::not(v $negatedValidator)`
+- `Not(Rule $rule)`
 
 Negates any rule.
 
