@@ -11,60 +11,50 @@
 
 namespace Respect\Validation\Rules;
 
+use Respect\Validation\Test\RuleTestCase;
+
 /**
- * @group  rule
+ * @group rule
+ *
  * @covers \Respect\Validation\Rules\NumericVal
- * @covers \Respect\Validation\Exceptions\NumericValException
+ *
+ * @author Alexandre Gomes Gaigalas <alexandre@gaigalas.net>
+ * @author Henrique Moody <henriquemoody@gmail.com>
+ *
+ * @since 0.3.9
  */
-class NumericValTest extends \PHPUnit_Framework_TestCase
+final class NumericValTest extends RuleTestCase
 {
-    protected $object;
-
-    protected function setUp()
-    {
-        $this->object = new NumericVal();
-    }
-
     /**
-     * @dataProvider providerForNumeric
+     * {@inheritdoc}
      */
-    public function testNumeric($input)
+    public function providerForValidInput(): array
     {
-        $this->assertTrue($this->object->__invoke($input));
-        $this->assertTrue($this->object->check($input));
-        $this->assertTrue($this->object->assert($input));
-    }
+        $rule = new NumericVal();
 
-    /**
-     * @dataProvider providerForNotNumeric
-     * @expectedException \Respect\Validation\Exceptions\NumericValException
-     */
-    public function testNotNumeric($input)
-    {
-        $this->assertFalse($this->object->__invoke($input));
-        $this->assertFalse($this->object->assert($input));
-    }
-
-    public function providerForNumeric()
-    {
         return [
-            [165],
-            [165.0],
-            [-165],
-            ['165'],
-            ['165.0'],
-            ['+165.0'],
+            [$rule, 165],
+            [$rule, 165.0],
+            [$rule, -165],
+            [$rule, '165'],
+            [$rule, '165.0'],
+            [$rule, '+165.0'],
         ];
     }
 
-    public function providerForNotNumeric()
+    /**
+     * {@inheritdoc}
+     */
+    public function providerForInvalidInput(): array
     {
+        $rule = new NumericVal();
+
         return [
-            [''],
-            [null],
-            ['a'],
-            [' '],
-            ['Foo'],
+            [$rule, ''],
+            [$rule, null],
+            [$rule, 'a'],
+            [$rule, ' '],
+            [$rule, 'Foo'],
         ];
     }
 }
