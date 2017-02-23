@@ -11,10 +11,24 @@
 
 namespace Respect\Validation\Rules;
 
-class NullType extends NotEmpty
+use Respect\Validation\Result;
+use Respect\Validation\Rule;
+
+/**
+ * Validates if the input is null.
+ *
+ * @author Alexandre Gomes Gaigalas <alexandre@gaigalas.net>
+ * @author Henrique Moody <henriquemoody@gmail.com>
+ *
+ * @since 0.3.9
+ */
+final class NullType implements Rule
 {
-    public function validate($input)
+    /**
+     * {@inheritdoc}
+     */
+    public function validate($input): Result
     {
-        return is_null($input);
+        return new Result(is_null($input), $input, $this);
     }
 }
