@@ -12,6 +12,7 @@
 namespace Respect\Validation\Rules;
 
 use finfo;
+use Respect\Validation\Test\RuleTestCase;
 use SplFileInfo;
 use SplFileObject;
 

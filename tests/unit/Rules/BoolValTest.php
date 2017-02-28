@@ -10,6 +10,8 @@
 
 namespace Respect\Validation\Rules;
 
+use Respect\Validation\Test\RuleTestCase;
+
 /**
  * @group  rule
  * @covers \Respect\Validation\Rules\BoolVal

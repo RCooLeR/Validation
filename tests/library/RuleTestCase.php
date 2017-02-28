@@ -9,12 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Respect\Validation\Rules;
+namespace Respect\Validation\Test;
 
+use PHPUnit_Framework_TestCase;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validatable;
 
-abstract class RuleTestCase extends \PHPUnit_Framework_TestCase
+abstract class RuleTestCase extends PHPUnit_Framework_TestCase
 {
     /**
      * It is to provide constructor arguments and.

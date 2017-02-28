@@ -12,6 +12,7 @@
 namespace Respect\Validation\Rules;
 
 use Respect\Validation\Exceptions\ComponentException;
+use Respect\Validation\Test\RuleTestCase;
 
 /**
  * @group  rule

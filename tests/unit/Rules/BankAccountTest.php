@@ -13,6 +13,7 @@ namespace Respect\Validation\Rules;
 
 use Respect\Validation\Rules\Locale\Factory;
 use Respect\Validation\Rules\Locale\GermanBankAccount;
+use Respect\Validation\Test\LocaleTestCase;
 use Respect\Validation\Validatable;
 
 /**

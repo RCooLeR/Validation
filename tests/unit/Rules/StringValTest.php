@@ -11,6 +11,7 @@
 
 namespace Respect\Validation\Rules;
 
+use Respect\Validation\Test\RuleTestCase;
 use stdClass;
 
 /**

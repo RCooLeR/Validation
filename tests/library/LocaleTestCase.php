@@ -9,14 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Respect\Validation\Rules;
+namespace Respect\Validation\Test;
 
 use malkusch\bav\BAV;
 use malkusch\bav\ConfigurationRegistry;
 use malkusch\bav\DataBackend;
 use malkusch\bav\DataBackendContainer;
+use PHPUnit_Framework_TestCase;
 
-class LocaleTestCase extends \PHPUnit_Framework_TestCase
+abstract class LocaleTestCase extends PHPUnit_Framework_TestCase
 {
     protected function getBavMock()
     {

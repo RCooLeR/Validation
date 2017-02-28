@@ -12,6 +12,7 @@
 namespace Respect\Validation\Rules;
 
 use ArrayObject;
+use Respect\Validation\Test\RuleTestCase;
 use SimpleXMLElement;
 use stdClass;
 

@@ -12,7 +12,7 @@
 namespace Respect\Validation\Rules\Locale;
 
 use malkusch\bav\BAV;
-use Respect\Validation\Rules\LocaleTestCase;
+use Respect\Validation\Test\LocaleTestCase;
 
 /**
  * @group  rule
